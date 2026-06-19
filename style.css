@@ -1,8 +1,26 @@
+@font-face {
+    font-family: "bilderburg";
+    src: url("assets/fonts/Bilderberg\ OTF.otf") format('woff');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+@font-face {
+    font-family: "vintage";
+    src: url("assets/fonts/Vintage\ King.ttf") format('woff');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
 body {
     padding: 0;
     margin: 0;
     min-height: 100vh;
     min-width: 100vw;
+    background-image: url('assets/img/woodtexturev1.jpg');
+    background-repeat: repeat;
 }
 
 /* Modal */
@@ -55,7 +73,12 @@ header {
     flex-direction: row;
     justify-content: space-between;
     padding: 20px;
-    border-bottom: 1px solid black;
+    box-shadow: 1px 1 1 black;
+    background-image: url('assets/img/pattern1.avif');
+}
+header > h1 {
+    color: white;
+    font-family: "vintage";
 }
 
 .book-container {
@@ -63,17 +86,79 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     padding: 20px;
+    gap: 20px;
 }
 
 .card {
-    border: 1px solid black;
+    border: none;
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.info {
+    border: 1px double gold;
+    flex: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card p {
+    box-sizing: border-box
+}
+
+.card .title {
+    width: 100%;
+    height: 60%;
+    padding: 20px;
+    
+}
+
+.card .author, .card .pages {
+    width: 40%;
+    height: 20%;
+}
+
+.card p {
+    text-align: center;
+    font-family: 'bilderburg';
+}
+
+.card button {
+    border: none;
+    border-radius: 6px;
 }
 
 .card button {
     background-color: red;
 }
 
-.card > .read {
+.card > div > .read {
     background-color: green;
 }
 
+.card > div > .remove {
+    background-color: white;
+}
+
+
+.options {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+}
+
+.options button {
+    width: 100%;
+}
+
+.options .remove {
+    flex: 1 10 auto;
+    padding: 2px;
+}
