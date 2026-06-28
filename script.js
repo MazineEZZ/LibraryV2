@@ -39,28 +39,13 @@ bookSubmit.addEventListener("click", (e) => {
     const author = bookAuthor.value;
     const pages = bookPages.value;
     const isRead = bookIsRead.checked;
-    addBookToLibrary(title, author, pages, isRead);
+    const book = new Book(title, author, pages, isRead);
+    book.addBookToLibrary();
     displayLibrary();
 
     bookForm.reset();
     modal.close();
 })
-
-
-
-function Book(title, author, pages, isRead) {
-    this.id = crypto.randomUUID();
-    this.title = title; 
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-    this.color = Math.floor(Math.random() * colors.length);
-}
-
-function addBookToLibrary(title, author, pages, isRead) {
-    const book = new Book(title, author, pages, isRead);
-    library.push(book);
-}
 
 function displayLibrary() {
     bookContainer.replaceChildren();
@@ -94,7 +79,7 @@ function displayLibrary() {
         removeImg.width = 20;
         removeImg.height = 20;
         removeBtn.appendChild(removeImg);
-        removeBtn.addEventListener("click", () => removeBookByID(book.id));
+        removeBtn.addEventListener("click", () => book.removeBookByID());
         removeBtn.classList.add("remove");
 
         const bookOptions = document.createElement("div");
@@ -117,17 +102,35 @@ function displayLibrary() {
     }
 }
 
-function removeBookByID(id) {
-    library = library.filter(book => book.id != id);
-
-    displayLibrary();
-}
 
 function toggleReadState(btn, book) {
     book.isRead = !book.isRead;
     btn.target.classList.toggle("read");
 }
 
-addBookToLibrary("To Kill a Mockingbird", "Harper lee", 281, true);
-addBookToLibrary("1984", "George Orwell", 328, false);
+class Book {
+    static totalBooks = 0;
+
+    constructor(title, author, pages, isRead) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+        this.color = Math.floor(Math.random() * colors.length);
+        Book.totalBooks++;
+    }
+
+    addBookToLibrary() {
+        library.push(this);
+    }
+
+    removeBookByID() {
+        library = library.filter(book => book.id != this.id);
+        Book.totalBooks--;
+
+        displayLibrary();
+    }
+}
+
 displayLibrary();
