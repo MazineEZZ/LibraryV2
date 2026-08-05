@@ -32,20 +32,21 @@ closeModal.addEventListener("click", () => {
     modal.close();  
 });
 
-bookSubmit.addEventListener("click", (e) => {
+bookForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    
+
     const title = bookTitle.value;
     const author = bookAuthor.value;
     const pages = bookPages.value;
     const isRead = bookIsRead.checked;
+
     const book = new Book(title, author, pages, isRead);
     book.addBookToLibrary();
     displayLibrary();
 
     bookForm.reset();
     modal.close();
-})
+});
 
 function displayLibrary() {
     bookContainer.replaceChildren();
@@ -134,3 +135,4 @@ class Book {
 }
 
 displayLibrary();
+setUpEventListener();
